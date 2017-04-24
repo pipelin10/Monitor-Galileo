@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #Uso CPU Usuario
-export usoCpuUsuario=$(top -n1 | grep Cpu | tr -s ' ' | cut -d ' ' -f 2 | tr -s ',' '.')
+export usoCpuUsuario=$(top -n1 | grep CPU | tr -s ' ' | cut -d ' ' -f 2 | tr -s ',' '.' | cut -d '%' -f 1) 
 echo "Uso cpu usuario: "
 echo $usoCpuUsuario
 
 #Uso CPU Sistema
-export usoCpuSistema=$(top -n1 | grep Cpu | tr -s ' ' | cut -d ' ' -f 4 | tr -s ',' '.')
+export usoCpuSistema=$(top -n1 | grep CPU | tr -s ' ' | cut -d ' ' -f 4 | tr -s ',' '.' | cut -d '%' -f 1)
 echo "Uso cpu sistema: "
 echo $usoCpuSistema
 
@@ -28,7 +28,7 @@ echo $usoRAM
 
 
 #Almacenamiento disponible en megabytes
-export almacenamientoDisp=$(df -m | grep sda1 | tr -s ' ' | cut -d ' ' -f 4)
+export almacenamientoDisp=$(df -m | grep root | tr -s ' ' | cut -d ' ' -f 4)
 echo "Almacenamiento disponible:"
 echo $almacenamientoDisp
 
