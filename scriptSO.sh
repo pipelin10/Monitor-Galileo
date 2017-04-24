@@ -1,19 +1,14 @@
 #!/bin/bash
 
 #Uso CPU Usuario
-export usoCpuUsuario=$(top -n1 | grep CPU | tr -s ' ' | cut -d ' ' -f 2 | tr -s ',' '.' | cut -d '%' -f 1) 
+export usoCpuUsuario=$(top -n1 | grep CPU | head -n 1 | tr -s ' ' | cut -d ' ' -f 2 | tr -s ',' '.' | cut -d '%' -f 1) 
 echo "Uso cpu usuario: "
 echo $usoCpuUsuario
 
 #Uso CPU Sistema
-export usoCpuSistema=$(top -n1 | grep CPU | tr -s ' ' | cut -d ' ' -f 4 | tr -s ',' '.' | cut -d '%' -f 1)
+export usoCpuSistema=$(top -n1 | grep CPU | head -n 1 | tr -s ' ' | cut -d ' ' -f 4 | tr -s ',' '.' | cut -d '%' -f 1)
 echo "Uso cpu sistema: "
 echo $usoCpuSistema
-
-#Uso CPU
-export usoCPU=$(echo $usoCpuSistema + $usoCpuUsuario |bc)
-echo "Uso cpu:"
-echo $usoCPU
 
 #Carga del sistema cada 5 minutos
 export cargaSistema=$(cat /proc/loadavg | cut -d ' ' -f 2)
@@ -22,13 +17,13 @@ echo $cargaSistema
 
 
 #Uso de memoria Ram en megabytes
-export usoRAM=$(free -m| grep Mem | tr -s ' ' | cut -d ' ' -f 3)
+export usoRAM=$(free | grep Mem | tr -s ' ' | cut -d ' ' -f 3)
 echo "Uso memoria RAM:"
 echo $usoRAM
 
 
 #Almacenamiento disponible en megabytes
-export almacenamientoDisp=$(df -m | grep root | tr -s ' ' | cut -d ' ' -f 4)
+export almacenamientoDisp=$(df | grep realroot | tr -s ' ' | cut -d ' ' -f 4)
 echo "Almacenamiento disponible:"
 echo $almacenamientoDisp
 
